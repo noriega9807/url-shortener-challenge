@@ -1,0 +1,23 @@
+{
+    "production": {
+        "PORT": 3000,
+        "DOMAIN_PROTOCOL": "http",
+        "DOMAIN_HOST": "localhost:3000",
+        "SALT_ROUNDS": 12,
+        "MONGO_DB_HOST": "127.0.0.1",
+        "MONGO_DB_PORT": 27017,
+        "MONGO_DB_NAME": "shortener",
+        "NODE_ENV": "production"
+    },
+    "test": {
+        "PORT": 3000,
+        "DOMAIN_PROTOCOL": "http",
+        "DOMAIN_HOST": "localhost:3000",
+        "SALT_ROUNDS": 12,
+        "MONGO_DB_HOST": "127.0.0.1",
+        "MONGO_DB_PORT": 27017,
+        "MONGO_DB_NAME": "shortenerTest",
+        "NODE_ENV": "test"
+    }
+}
+  

@@ -27,6 +27,10 @@ module.exports = mongo.model('Url', new mongoose.Schema({
   protocol: String,
   domain: String,
   path: String,
+  visits: { 
+    type: Number, 
+    default: 0 
+  },
 
   createdAt: {
     type: Date,

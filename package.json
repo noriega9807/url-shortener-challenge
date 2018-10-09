@@ -2,9 +2,10 @@
   "name": "tiny-url",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon app.js",
+    "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && mocha server/**/*.test.js"
   },
   "author": "",
   "license": "ISC",
@@ -13,6 +14,8 @@
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
     "mongoose": "^4.12.3",
+    "nodemon": "^1.18.4",
+    "shortid": "^2.2.13",
     "uuid": "^3.1.0",
     "valid-url": "^1.0.9"
   },
@@ -27,6 +30,9 @@
   },
   "devDependencies": {
     "eslint": "^4.9.0",
-    "eslint-plugin-node": "^5.2.0"
+    "eslint-plugin-node": "^5.2.0",
+    "expect": "^23.6.0",
+    "mocha": "^5.2.0",
+    "supertest": "^3.3.0"
   }
 }

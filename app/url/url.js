@@ -1,4 +1,5 @@
 const uuidv4 = require('uuid/v4');
+const shortid = require("shortid");
 const { domain } = require('../../environment');
 const SERVER = `${domain.protocol}://${domain.host}`;
 
@@ -13,7 +14,9 @@ const validUrl = require('valid-url');
  * @returns {object}
  */
 async function getUrl(hash) {
-  let source = await UrlModel.findOne({ active: true, hash });
+  let source = await UrlModel.findOneAndUpdate({ active: true, hash }, 
+                                              { $inc: { visits: 1 }})
+                                              .select('url -_id');
   return source;
 }
 
@@ -24,9 +27,10 @@ async function getUrl(hash) {
  * @param {string} id
  * @returns {string} hash
  */
-function generateHash(url) {
-  // return uuidv5(url, uuidv5.URL);
-  return uuidv4();
+function generateHash() {
+  
+  return shortid.generate();
+
 }
 
 /**
@@ -72,8 +76,9 @@ async function shorten(url, hash) {
     active: true
   });
 
-  const saved = await shortUrl.save();
-  // TODO: Handle save errors
+  const saved = await shortUrl.save().catch((err) => {
+      throw new Error('There was an error while saving on Database');
+    });
 
   return {
     url,
@@ -82,6 +87,11 @@ async function shorten(url, hash) {
     removeUrl: `${SERVER}/${hash}/remove/${removeToken}`
   };
 
+}
+
+async function deleteUrl(removeToken, hash){
+  let deleted = await UrlModel.findOneAndUpdate({ removeToken, hash }, { active: false });
+  return deleted;
 }
 
 /**
@@ -98,5 +108,6 @@ module.exports = {
   getUrl,
   generateHash,
   generateRemoveToken,
+  deleteUrl,
   isValid
 }

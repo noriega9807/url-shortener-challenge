@@ -1,6 +1,7 @@
 'use strict';
 
 require('dotenv').config();
+require('./config/config');
 
 const app = require('../app');
 const server = require('http').Server(app);
@@ -75,3 +76,7 @@ function onListening() {
     : 'port ' + addr.port;
   console.log('Listening on ' + bind);
 }
+
+module.exports = {
+  app: app
+};
